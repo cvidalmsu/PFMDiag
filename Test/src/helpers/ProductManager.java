@@ -23,12 +23,17 @@ import java.util.StringTokenizer;
 
 import choco.kernel.model.constraints.Constraint;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
+import es.us.isa.ChocoReasoner.questions.ChocoMaxFeatsProductQuestion;
+import es.us.isa.ChocoReasoner.questions.ChocoValidConfigurationQuestion;
 import es.us.isa.ChocoReasoner.questions.ChocoValidProductQuestion;
 import es.us.isa.FAMA.models.FAMAfeatureModel.Dependency;
 import es.us.isa.FAMA.models.FAMAfeatureModel.ExcludesDependency;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
 import es.us.isa.FAMA.models.FAMAfeatureModel.Feature;
+import es.us.isa.FAMA.models.featureModel.GenericFeature;
 import es.us.isa.FAMA.models.featureModel.Product;
+import es.us.isa.FAMA.models.variabilityModel.VariabilityElement;
+import es.us.isa.FAMA.stagedConfigManager.Configuration;
 
 public class ProductManager {
 
@@ -183,6 +188,96 @@ public class ProductManager {
 				}
 
 			}
+		}
+		return res;
+	}
+
+	
+	public Map<Configuration, String> generateConfiguration(FAMAFeatureModel fm, Integer[] percentages, int num,String partialPath) {
+	    Map<Configuration, String> result= new HashMap<Configuration,String>();
+	    
+	    Configuration maxconfiguration = new Configuration();
+		for(Feature f:fm.getFeatures()) {
+			maxconfiguration.addElement(f, 1);
+		}
+		ChocoFMDiag cop = new ChocoFMDiag();
+		cop.configuration=maxconfiguration;
+		ChocoReasoner reasoner = new ChocoReasoner();
+		fm.transformTo(reasoner);
+		reasoner.ask(cop);
+		//elimino las que ya están asignadas
+
+		maxconfiguration = new Configuration();
+		for(Feature f:fm.getFeatures()) {
+			if(!cop.result.containsKey("C_"+f.getName())) {
+				maxconfiguration.addElement(f, 1);	
+			}
+			
+		}
+		
+
+	    for(Integer p:percentages) {
+	    	for(int i=0;i<num;i++) {
+	    		List<VariabilityElement> feats = new LinkedList<VariabilityElement>();
+	    		feats.addAll(maxconfiguration.getElements().keySet());
+	    		Collections.shuffle(feats);
+	    		
+	    		Integer size=(fm.getFeaturesNumber()*p)/100;
+	    		if (size > feats.size()) {
+	    			size = feats.size();
+	    		}
+	    		Configuration res= new Configuration();
+	    		for (VariabilityElement f : feats.subList(0, size)) {
+	    			res.addElement(f, 1);
+	    		}
+	    		result.put(res, partialPath.replaceAll(".xml", "")+"-"+p+"-"+i+".prod");
+	    	}
+	    	
+	    }
+	    return result;
+	}
+	
+	public Configuration generateConfiguration(FAMAFeatureModel fm, Integer size) {
+
+		Configuration res = new Configuration();
+
+		//create a configuration with all selected features
+		Configuration configuration = new Configuration();
+		for(Feature f:fm.getFeatures()) {
+			configuration.addElement(f, 1);
+		}
+		ChocoFMDiag cop = new ChocoFMDiag();
+		cop.configuration=configuration;
+		ChocoReasoner reasoner = new ChocoReasoner();
+		fm.transformTo(reasoner);
+		reasoner.ask(cop);
+		//elimino las que ya están asignadas
+
+		configuration = new Configuration();
+		for(Feature f:fm.getFeatures()) {
+			if(!cop.result.containsKey("C_"+f.getName())) {
+				configuration.addElement(f, 1);	
+			}
+			
+		}
+		
+		List<VariabilityElement> feats = new LinkedList<VariabilityElement>();
+		feats.addAll(configuration.getElements().keySet());
+		Collections.shuffle(feats);
+		if (size > feats.size()) {
+			size = feats.size();
+		}
+		for (VariabilityElement f : feats.subList(0, size)) {
+			res.addElement(f, 1);
+		}
+
+		reasoner = new ChocoReasoner();
+		fm.transformTo(reasoner);
+		ChocoValidConfigurationQuestion vqp = new ChocoValidConfigurationQuestion();
+		vqp.setConfiguration(res);
+		reasoner.ask(vqp);
+		if (!vqp.isValid()) {
+			throw new IllegalStateException("Cannot build a product with the desired amount of features");
 		}
 		return res;
 	}
@@ -354,4 +449,6 @@ public class ProductManager {
 		return res;
 
 	}
+
+	
 }

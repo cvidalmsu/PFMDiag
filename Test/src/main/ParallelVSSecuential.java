@@ -2,7 +2,7 @@ package main;
 
 import java.io.File;
 
-import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell2;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
@@ -15,8 +15,8 @@ public class ParallelVSSecuential {
 
 	public static void main(String[] args) throws WrongFormatException {
 		
-			String modelPath =  "./models/betty/model-100-10-1.xml";;
-			String productPath = "./models/betty/model-100-10-1/model-100-10-1-10-0.prod";
+			String modelPath =  "./tests/1/model.xml";;
+			String productPath = "./tests/1/product.prod";
 			Integer m = 2;
 			Integer t = 1;
 			
@@ -34,7 +34,7 @@ public class ParallelVSSecuential {
 			ChocoReasoner reasoner = new ChocoReasoner();
 			fm.transformTo(reasoner);
 
-			ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
+			ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
     		fmdiag.setConfiguration(prod);
 			fmdiag.setRequirement(new Product());
 			fmdiag.flexactive = true;

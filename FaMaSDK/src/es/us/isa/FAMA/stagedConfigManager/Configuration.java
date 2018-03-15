@@ -21,6 +21,8 @@ package es.us.isa.FAMA.stagedConfigManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.us.isa.FAMA.models.featureModel.GenericFeature;
+import es.us.isa.FAMA.models.featureModel.Product;
 import es.us.isa.FAMA.models.variabilityModel.VariabilityElement;
 
 public class Configuration {
@@ -47,5 +49,12 @@ public class Configuration {
 		elements.put(ve, integer);
 	}
 	
+	public Product getAsProduct() {
+		Product res = new Product();
+		for(VariabilityElement e:elements.keySet()) {
+			res.addFeature((GenericFeature) e);
+		}
+		return res;
+	}
 	
 }

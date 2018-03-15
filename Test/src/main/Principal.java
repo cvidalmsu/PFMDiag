@@ -6,7 +6,7 @@ import java.util.Set;
 
 import choco.kernel.model.constraints.Constraint;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorEvolutionary;
-import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell2;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
@@ -41,7 +41,7 @@ public class Principal {
 			ChocoReasoner reasoner = new ChocoReasoner();
 			fm.transformTo(reasoner);
 
-			ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
+			ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
     		fmdiag.setConfiguration(prod);
 			fmdiag.setRequirement(new Product());
 			fmdiag.flexactive = true;

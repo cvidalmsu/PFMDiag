@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><feature-model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.tdg-seville.info/benavides/featuremodelling/feature-model.xsd">
+<feature name="Debian">
+	<binaryRelation name="c1">
+		<cardinality max="1" min="1"/>
+		<solitaryFeature name="texteditor">
+			<setRelation name="c5">
+				<cardinality max="3" min="1"/>
+				<groupedFeature name="vi"/>
+				<groupedFeature name="gedit"/>
+				<groupedFeature name="openoffice.org-gtk-gnome">
+					<setRelation name="c9">
+						<cardinality min="1" max="2"/>
+						-<groupedFeature name="openoffice.org-gnome 1:2.4.0-3Ubuntu 6"/>
+						-<groupedFeature name="openoffice.org2-gnome 1:2.4.0-3Ubuntu 6"/>
+					</setRelation>
+				</groupedFeature>
+			</setRelation>
+		</solitaryFeature>
+	</binaryRelation>
+	<binaryRelation name="c2">
+		<cardinality max="1" min="1"/>
+		<solitaryFeature name="bash"> </solitaryFeature>
+	</binaryRelation>
+	<binaryRelation name="c3">
+		<cardinality max="1" min="1"/>
+		<solitaryFeature name="gui">
+			<setRelation name="c6">
+				<cardinality max="2" min="1"/>
+				<groupedFeature name="kde"/>
+				<groupedFeature name="gnome"/>
+			</setRelation>
+		</solitaryFeature>
+	</binaryRelation>
+	<binaryRelation name="c4">
+		<cardinality max="1" min="0"/>
+		<solitaryFeature name="games">
+			<setRelation name="c8">
+				<cardinality max="1" min="1"/>
+				<groupedFeature name="gnuchess"/>
+				<groupedFeature name="glchess"/>
+			</setRelation>
+		</solitaryFeature>
+	</binaryRelation>
+</feature>
+<requires name="c10" feature="openoffice.org-gtk-gnome" requires="gnome"/>
+<excludes name="c7" excludes="games" feature="gui"/>
+</feature-model>
