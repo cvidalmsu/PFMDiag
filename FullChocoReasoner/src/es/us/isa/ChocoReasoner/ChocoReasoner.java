@@ -82,7 +82,6 @@ public class ChocoReasoner extends FeatureModelReasoner {
 	}
 	@Override
 	public void reset() {
-
 		this.features = new HashMap<String, GenericFeature>();
 		this.variables = new HashMap<String, IntegerVariable>();
 		this.problem = new CPModel();

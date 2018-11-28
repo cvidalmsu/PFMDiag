@@ -56,8 +56,6 @@ public class ChocoConfigurationExtensionBOLONFMDIAG extends ChocoQuestion implem
 	}
 
 	public PerformanceResult answer(Reasoner r) throws FAMAException {
-
-		ChocoResult res = new ChocoResult();
 		chReasoner = (ChocoReasoner) r;
 		// solve the problem y fmdiag
 		relations = new HashMap<String, Constraint>();
@@ -111,18 +109,52 @@ public class ChocoConfigurationExtensionBOLONFMDIAG extends ChocoQuestion implem
 		}
 
 		return new ChocoResult();
-
 	}
 
 	public List<String> fmdiag(List<String> S, List<String> AC) {
 		if (S.size() == 0 || !isConsistent(less(AC, S))) {
 			return new ArrayList<String>();
-		} else {
-			return diag2(new ArrayList<String>(), S, AC);
+		}
+		else {
+			return diag(new ArrayList<String>(), S, AC, 1,0);
 		}
 	}
 	
-	public List<String> diag(List<String> D, List<String> S, List<String> AC) {
+	public List<String> diag(List<String> D, List<String> S, List<String> AC, int actual, int previo) {
+		
+		/*
+		System.out.println("");
+
+		System.out.println("actual: " + actual + " - previo: " + previo);
+		System.out.println("D: " + D + " - S: " + S);
+		System.out.println("AC: " + AC);
+		*/
+		
+		if (D.size() != 0 && isConsistent(AC)) {
+			return new ArrayList<String>();
+		}
+		if (flexactive) {
+			if (S.size() <= m) {
+				return S;
+			}
+		} else {
+			if (S.size() == 1) {
+				return S;
+			}
+		}
+		
+		int k = S.size() / 2;
+		List<String> S1 = S.subList(0, k);
+		List<String> S2 = S.subList(k, S.size());
+		
+	//	System.out.println("S1: " + S1 + " - S2: " + S2 + " (actual " + actual + ")");
+		
+		List<String> A1 = diag(S2, S1, less(AC, S2), actual+1, actual);
+		List<String> A2 = diag(A1, S2, less(AC, A1), actual+2, actual);
+		return plus(A1, A2);
+	}
+
+	public List<String> diag_(List<String> D, List<String> S, List<String> AC) {
 		if (D.size() != 0 && isConsistent(AC)) {
 			return new ArrayList<String>();
 		}
@@ -138,8 +170,8 @@ public class ChocoConfigurationExtensionBOLONFMDIAG extends ChocoQuestion implem
 		int k = S.size() / 2;
 		List<String> S1 = S.subList(0, k);
 		List<String> S2 = S.subList(k, S.size());
-		List<String> A1 = diag(S2, S1, less(AC, S2));
-		List<String> A2 = diag(A1, S2, less(AC, A1));
+		List<String> A1 = diag_(S2, S1, less(AC, S2));
+		List<String> A2 = diag_(A1, S2, less(AC, A1));
 		return plus(A1, A2);
 	}
 
@@ -159,8 +191,8 @@ public class ChocoConfigurationExtensionBOLONFMDIAG extends ChocoQuestion implem
 		int k = S.size() / 2;
 		List<String> S1 = S.subList(0, k);
 		List<String> S2 = S.subList(k, S.size());
-		List<String> A1 = diag(S2, S1, less(AC, S2));
-		List<String> A2 = diag(new ArrayList<String>(), S2, AC);
+		List<String> A1 = diag2(S2, S1, less(AC, S2));
+		List<String> A2 = diag2(new ArrayList<String>(), S2, AC);
 		return plus(A1, A2);
 	}
 

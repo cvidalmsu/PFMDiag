@@ -29,5 +29,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/cvshi/git/FaMA/Sat4jReasoner/resources/lib/org.sat4j.core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cvshi/git/FaMA/Sat4jReasoner/resources/lib/org.sat4j.maxsat.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cvshi/git/FaMA/Sat4jReasoner/resources/lib/sat4j-maxsat.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
