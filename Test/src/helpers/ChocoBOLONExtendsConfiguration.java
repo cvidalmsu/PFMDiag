@@ -70,8 +70,6 @@ public class ChocoBOLONExtendsConfiguration extends ChocoQuestion {
 		
 		// Get all model variables
 		variables = ((ChocoReasoner) r).getVars();
-		
-		
 	}
 
 	//

@@ -345,6 +345,7 @@ public class ProductManager {
 		try {
 			res = new LinkedList<Product>();
 			File file = new File(path);
+			
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line;

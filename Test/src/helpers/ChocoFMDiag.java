@@ -173,4 +173,5 @@ public class ChocoFMDiag extends ChocoQuestion {
 		s.solve();
 		return s.isFeasible();
 	}
+	
 }
