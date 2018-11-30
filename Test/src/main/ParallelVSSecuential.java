@@ -2,7 +2,7 @@ package main;
 
 import java.io.File;
 
-import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
@@ -34,7 +34,7 @@ public class ParallelVSSecuential {
 			ChocoReasoner reasoner = new ChocoReasoner();
 			fm.transformTo(reasoner);
 
-			ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
+			ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
     		fmdiag.setConfiguration(prod);
 			fmdiag.setRequirement(new Product());
 			fmdiag.flexactive = true;

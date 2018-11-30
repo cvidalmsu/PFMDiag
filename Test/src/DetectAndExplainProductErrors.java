@@ -1,7 +1,7 @@
 import java.util.Collections;
 import java.util.List;
 
-import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
 import es.us.isa.FAMA.models.FAMAfeatureModel.fileformats.XMLReader;
@@ -27,7 +27,7 @@ public class DetectAndExplainProductErrors {
 			System.out.println("Executing Product: "+product);
 			ChocoReasoner reasoner = new ChocoReasoner();
 			fm.transformTo(reasoner);
-			ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
+			ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
 			fmdiag.setConfiguration(product);
 			fmdiag.setRequirement(r);
 			reasoner.ask(fmdiag);

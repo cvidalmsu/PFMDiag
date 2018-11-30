@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
@@ -67,7 +67,7 @@ public class PFMDiagTest{
 		fm.transformTo(reasoner);
 		
 		///FMDiag
-		ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
+		ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
 		fmdiag.setConfiguration(prod);
 		fmdiag.setRequirement(new Product());
 		fmdiag.flexactive = false;

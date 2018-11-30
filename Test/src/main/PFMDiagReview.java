@@ -18,9 +18,8 @@ import java.util.TimeZone;
 
 import choco.kernel.model.constraints.Constraint;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorEvolutionary;
-import es.us.isa.Choco.fmdiag.configuration.ChocoConfigurationExtensionBOLONFMDIAG;
+import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAG;
 import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell;
-import es.us.isa.Choco.fmdiag.configuration.ChocoExplainErrorFMDIAGParalell3;
 import es.us.isa.ChocoReasoner.ChocoReasoner;
 import es.us.isa.FAMA.Reasoner.questions.DetectErrorsQuestion;
 import es.us.isa.FAMA.models.FAMAfeatureModel.FAMAFeatureModel;
@@ -191,7 +190,7 @@ public class PFMDiagReview {
 		ChocoReasoner reasoner = new ChocoReasoner();
 		fm.transformTo(reasoner);
 		
-		ChocoConfigurationExtensionBOLONFMDIAG fmdiag = new ChocoConfigurationExtensionBOLONFMDIAG();
+		ChocoExplainErrorFMDIAG fmdiag = new ChocoExplainErrorFMDIAG();
 		fmdiag.setConfiguration(prod);
 		fmdiag.setRequirement(new Product());
 		fmdiag.flexactive = true;
